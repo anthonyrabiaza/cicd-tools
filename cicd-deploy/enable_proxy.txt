@@ -1,0 +1,1 @@
+api-mgr endpoint configure -p true --referencesUserDomain --scheme http --type http --uri "http://localhost:8081/api/" --port 8081 --path "/proxy/cicd/*" "CICD Dummy" "1.0"

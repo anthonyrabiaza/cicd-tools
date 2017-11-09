@@ -1,0 +1,1 @@
+api-mgr endpoint configure -p true --type raml --scheme http --getUriFromRAML --isCloudHub --path "/" "CICD Dummy" "1.0"

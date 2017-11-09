@@ -1,0 +1,1 @@
+api-mgr applications set-tier "Default tier" "bd91c7e98d8145289c16fbef67e1c5cf" "CICD Dummy" "1.0"

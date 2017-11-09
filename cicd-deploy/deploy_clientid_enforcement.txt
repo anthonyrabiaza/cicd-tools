@@ -1,0 +1,1 @@
+api-mgr policy apply "client-id-enforcement" "CICD Dummy" "1.0" -c '{"clientIdExpression":"#[message.inboundProperties[\"client_id\"]]", "clientSecretExpression":"#[message.inboundProperties[\"client_secret\"]]"}'

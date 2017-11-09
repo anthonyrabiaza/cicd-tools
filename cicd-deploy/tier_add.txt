@@ -1,0 +1,1 @@
+api-mgr tiers add "CICD Dummy" "1.0" --name "Default tier" --description "Default tier with 5 request per minute" --limit true,5,min

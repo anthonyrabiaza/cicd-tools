@@ -1,0 +1,132 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Anypoint API - Deploy Proxy",
+		"_postman_id": "18427899-3e4a-cb59-950b-d2baf56c5bcb",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "a-Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonReply = JSON.parse(responseBody)",
+							"postman.setEnvironmentVariable(\"access_token\", jsonReply.access_token);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://{{anypoint_url}}/accounts/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "{{cloudhub_user_name}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{cloudhub_password}}",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "b-List APIs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonReply = JSON.parse(responseBody)",
+							"postman.setEnvironmentVariable(\"current_api__apiid\", jsonReply.apis[0].versions[0].apiId);",
+							"postman.setEnvironmentVariable(\"current_api__id\", jsonReply.apis[0].versions[0].id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "https://{{anypoint_url}}/apiplatform/repository/v2/organizations/{{org_id}}/apis?query=cicd",
+					"protocol": "https",
+					"host": [
+						"{{anypoint_url}}"
+					],
+					"path": [
+						"apiplatform",
+						"repository",
+						"v2",
+						"organizations",
+						"{{org_id}}",
+						"apis"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "cicd",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "c-Deploy Proxy",
+			"request": {
+				"url": "https://{{anypoint_url}}/apiplatform/repository/v2/organizations/{{org_id}}/apis/{{current_api__apiid}}/versions/{{current_api__id}}/proxy/deployment",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"applicationName\": \"cicd-dummy-proxy\",\n  \"environmentId\": \"{{env_id}}\",\n  \"type\": \"HY\",\n  \n  \"targetId\": 2,\n  \"targetName\": \"anypoint-383\",\n  \"targetType\": \"server\",\n  \"gatewayVersion\": \"3.8.3\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

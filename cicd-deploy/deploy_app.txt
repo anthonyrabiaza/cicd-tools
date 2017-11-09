@@ -1,0 +1,1 @@
+runtime-mgr standalone-application deploy "anypoint-383" "CICD_Dummy" /opt/mulesoft/_deployables/cicd-dummy-agw.zip
