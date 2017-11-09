@@ -1,4 +1,4 @@
-# How-to CICD for Private Cloud Edition
+# How-to CICD for Private Cloud Edition and Hybrid
 
 This is an example of command line tools to deploy, enable proxy, deploy proxy and apply policies to MuleSoft API deployed on Anypoint Private Cloud Edition.
 
